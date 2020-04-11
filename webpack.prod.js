@@ -3,7 +3,6 @@ const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 // const WorkboxPlugin = require("workbox-webpack-plugin");
@@ -22,6 +21,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
+      {
         test: "/.js$/",
         exclude: /node_modules/,
         loader: "babel-loader",
@@ -33,6 +36,19 @@ module.exports = {
           "css-loader",
           "postcss-loader",
           "sass-loader",
+        ],
+      },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "img/",
+              publicPath: "img/",
+            },
+          },
         ],
       },
     ],
@@ -50,7 +66,6 @@ module.exports = {
       path: path.resolve(__dirname, "dist"),
     }),
     new MiniCssExtractPlugin({ filename: "main.bundle.css" }),
-    new CopyWebpackPlugin([{ from: "./src/client/images", to: "./images" }]),
     // new WorkboxPlugin.GenerateSW({})
   ],
 };
