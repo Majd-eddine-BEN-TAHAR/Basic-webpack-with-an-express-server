@@ -45,7 +45,6 @@ module.exports = {
       protectWebpackAssets: false,
     }),
     new HtmlWebPackPlugin({
-      hash: true,
       template: "./src/client/views/index.html",
       filename: "index.html",
       path: path.resolve(__dirname, "dist"),
