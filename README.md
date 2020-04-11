@@ -4,6 +4,7 @@ The goal of this repo is be an example of a basic but functional app built on We
 
 ## What cover the repo
 
+- Using pug JS
 - Transpiling Sass files to one CSS file using Webpack
 - CSS Autoprefixer
 - Transpile Javascript ES6 to ES5 code compatible for older browsers using Babel.
