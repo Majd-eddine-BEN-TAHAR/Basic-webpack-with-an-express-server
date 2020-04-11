@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 // const WorkboxPlugin = require("workbox-webpack-plugin");
+const HtmlWebpackPugPlugin = require("html-webpack-pug-plugin");
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -20,9 +21,16 @@ module.exports = {
   devtool: "cheap-source-map",
   module: {
     rules: [
+      // {
+      //   test: /\.html$/,
+      //   loader: "html-loader",
+      // },
       {
-        test: /\.html$/,
-        loader: "html-loader",
+        test: /\.pug$/,
+        loaders: [
+          "html-loader",
+          'pug-html-loader?{"pretty":true,"exports":false}',
+        ],
       },
       {
         test: "/.js$/",
@@ -61,10 +69,11 @@ module.exports = {
       protectWebpackAssets: false,
     }),
     new HtmlWebPackPlugin({
-      template: "./src/client/views/index.html",
+      template: "./src/client/views/index.pug",
       filename: "index.html",
       path: path.resolve(__dirname, "dist"),
     }),
+    // new HtmlWebpackPugPlugin(),
     new MiniCssExtractPlugin({ filename: "main.bundle.css" }),
     // new WorkboxPlugin.GenerateSW({})
   ],
