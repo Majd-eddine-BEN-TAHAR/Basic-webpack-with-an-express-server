@@ -8,6 +8,7 @@ The goal of this repo is be an example of a basic but functional app built on We
 - Transpiling Sass files to one CSS file using Webpack
 - CSS Autoprefixer
 - Transpile Javascript ES6 to ES5 code compatible for older browsers using Babel.
+- Converting images to base64 when their size is less than 10kb
 - Moving images from src folder to dist folder when running the app
 - Express Server
 - service-workers for offline capability
