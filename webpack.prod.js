@@ -5,8 +5,6 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-// const WorkboxPlugin = require("workbox-webpack-plugin");
-const HtmlWebpackPugPlugin = require("html-webpack-pug-plugin");
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -21,10 +19,6 @@ module.exports = {
   devtool: "cheap-source-map",
   module: {
     rules: [
-      // {
-      //   test: /\.html$/,
-      //   loader: "html-loader",
-      // },
       {
         test: /\.pug$/,
         loaders: [
@@ -50,8 +44,9 @@ module.exports = {
         test: /\.(png|jp(e*)g|svg)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
+              limit: 10000,
               name: "[name].[ext]",
               outputPath: "img/",
               publicPath: "img/",
@@ -73,8 +68,6 @@ module.exports = {
       filename: "index.html",
       path: path.resolve(__dirname, "dist"),
     }),
-    // new HtmlWebpackPugPlugin(),
     new MiniCssExtractPlugin({ filename: "main.bundle.css" }),
-    // new WorkboxPlugin.GenerateSW({})
   ],
 };

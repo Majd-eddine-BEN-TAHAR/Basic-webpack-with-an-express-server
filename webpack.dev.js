@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -11,8 +10,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/,
-        loader: "html-loader",
+        test: /\.pug$/,
+        loaders: [
+          "html-loader",
+          'pug-html-loader?{"pretty":true,"exports":false}',
+        ],
       },
       {
         test: "/.js$/",
@@ -32,8 +34,9 @@ module.exports = {
         test: /\.(png|jp(e*)g|svg)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: "url-loader",
             options: {
+              limit: 10000,
               name: "[name].[ext]",
               outputPath: "img/",
               publicPath: "img/",
@@ -46,10 +49,9 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       hash: true,
-      template: "./src/client/views/index.html",
+      template: "./src/client/views/index.pug",
       filename: "./index.html",
     }),
     new MiniCssExtractPlugin({ filename: "main.bundle.css" }),
-    // new CopyWebpackPlugin([{ from: "./src/client/images", to: "./images" }]),
   ],
 };
